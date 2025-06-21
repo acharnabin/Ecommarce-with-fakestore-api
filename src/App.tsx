@@ -5,19 +5,19 @@ import ProductDetailsPage from "./pages/ProductDetailsPage";
 import LoginPage from "./pages/Login";
 import SignUpPage from "./pages/SignUp";
 import { Header } from "./layout/Header";
+import Example from "./pages/Example";
 
 const App = () => {
   return (
     <div>
-      <Header/>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/infinite-products" element={<InfiniteProductPage />} />
         <Route path="/product-details/:id" element={<ProductDetailsPage />} />
-
-        <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/sign-up" element={<SignUpPage/>}/>
-        
+        <Route path="/example" element={<Example />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/sign-up" element={<SignUpPage />} />
       </Routes>
     </div>
   );

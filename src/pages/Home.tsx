@@ -1,6 +1,9 @@
 import { getAllProducts } from "@/api/functions/product.api";
+import Component1 from "@/components/Component1";
+import Component2 from "@/components/Component2";
 import AddProductDialog from "@/components/product/add-product-dialog";
 import ProductCard from "@/components/product/product-card";
+import PureComponent from "@/components/PureComponent";
 import { Button } from "@/components/ui/button";
 
 import { useQuery } from "@tanstack/react-query";
@@ -11,6 +14,8 @@ function Home() {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
 
+  const [count, setCount] = useState(0);
+
   const { data, error, status, isLoading } = useQuery({
     queryKey: ["use-get-product-list", limit, page],
     queryFn: () => getAllProducts(limit, page),
@@ -19,13 +24,29 @@ function Home() {
   if (error) {
     return (
       <div className="flex justify-center items-center h-[60vh]">
-        <h1 className="text-red-500 text-xl font-medium">Something went wrong.</h1>
+        <h1 className="text-red-500 text-xl font-medium">
+          Something went wrong.
+        </h1>
       </div>
     );
   }
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
+      <button onClick={() => setCount(count + 1)}>+</button>
+      <PureComponent count={count} />
+
+      <Component1>
+        <h1>This is child</h1>
+      </Component1>
+
+      <Component1>
+        <h1>This is child 2</h1>
+      </Component1>
+
+      <Component1>
+        <Component2 />
+      </Component1>
       {/* Header actions */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <Button onClick={() => setOpen(true)}>Add Product</Button>
@@ -66,8 +87,12 @@ function Home() {
       </div>
 
       <div className="text-muted-foreground text-sm">
-        <p>Status: <strong>{status}</strong></p>
-        <p>Total products on this page: <strong>{data?.products?.length}</strong></p>
+        <p>
+          Status: <strong>{status}</strong>
+        </p>
+        <p>
+          Total products on this page: <strong>{data?.products?.length}</strong>
+        </p>
       </div>
 
       {/* Product Grid */}
@@ -78,7 +103,7 @@ function Home() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {data?.products?.map((product) => (
-            <ProductCard key={product.id} product={product}/>
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       )}

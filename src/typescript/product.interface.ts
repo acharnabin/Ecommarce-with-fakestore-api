@@ -5,6 +5,10 @@ export interface IProductListResponse {
     message: string;
     products: IProduct[];
   }
+
+
+  type Tcta='male'|'female'
+
   export interface IProduct {
     id: number;
     title: string;
@@ -14,7 +18,7 @@ export interface IProductListResponse {
     brand: string;
     model: string;
     color: string;
-    category: string;
+    category: Tcta;
     discount?: number;
     popular?: boolean;
     onSale?: boolean;
